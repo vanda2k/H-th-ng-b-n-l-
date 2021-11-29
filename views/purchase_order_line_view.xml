@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="toy_purchase_order_line_tree_view" model="ir.ui.view">
+            <field name="name">Purchase Order Line Tree View</field>
+            <field name="model">toy.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="order_id"/>
+                    <field name="product_id"/>
+                    <field name="product_unit"/>
+                    <field name="product_qty"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                    <field name="price_unit"/>
+                    <field name="product_picked"/>
+                    <field name="product_pick_plan"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_toy_purchase_order_line_tree" model="ir.actions.act_window">
+            <field name="name">Purchase Order Line</field>
+            <field name="res_model">toy.purchase.order.line</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+         <menuitem id="report_menu_root"
+            name="Báo cáo"
+            parent="retail_menu_root"
+            sequence="5"/>
+
+        <menuitem id="purchase_order_line_menu"
+            name="Báo cáo mua sản phẩm chi tiết"
+            parent="report_menu_root"
+            action="action_toy_purchase_order_line_tree"
+            sequence="1"/>
+    </data>
+</odoo>

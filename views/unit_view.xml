@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="unit_tree_view" model="ir.ui.view">
+            <field name="name">Category Tree View</field>
+            <field name="model">toy.unit</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="unit_form_view" model="ir.ui.view">
+            <field name="name">Category Form View</field>
+            <field name="model">toy.unit</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="retail_unit_action" model="ir.actions.act_window">
+            <field name="name">Unit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.unit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="unit_menu"
+            name="Đơn vị tính"
+            parent="product_menu_root"
+            action="retail_unit_action"
+            sequence="1"/>
+
+    </data>
+</odoo>

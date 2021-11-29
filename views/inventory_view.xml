@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_toy_inventory_form" model="ir.ui.view">
+            <field name="name">toy.inventory.form</field>
+            <field name="model">toy.inventory</field>
+            <field name="arch" type="xml">
+                <form string="inventory">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                            <field name="manager_id"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_toy_inventory_tree" model="ir.ui.view">
+            <field name="name">toy.inventory.tree</field>
+            <field name="model">toy.inventory</field>
+            <field name="arch" type="xml">
+                <tree string="Inventory">
+                    <field name="name"/>
+                    <field name="manager_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_toy_inventory_filter" model="ir.ui.view">
+            <field name="name">toy.inventory.search</field>
+            <field name="model">toy.inventory</field>
+            <field name="arch" type="xml">
+                <search string="inventory">
+                    <field name="name" string="inventory"/>
+                    <field name="manager_id" />
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                </search>
+             </field>
+        </record>
+
+        <record id="toy_inventory_tree_action" model="ir.actions.act_window">
+            <field name="name">Inventory</field>
+            <field name="res_model">toy.inventory</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="inventory_menu"
+            name="Kho"
+            parent="product_menu_root"
+            action="toy_inventory_tree_action"
+            sequence="4"/>
+    </data>
+</odoo>
+

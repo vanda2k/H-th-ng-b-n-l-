@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="list_product_by_category_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('category_id', '=', active_id)]</field>
+        </record>
+        <record id="category_tree_view" model="ir.ui.view">
+            <field name="name">Category Tree View</field>
+            <field name="model">toy.category</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="product_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="category_form_view" model="ir.ui.view">
+            <field name="name">Category Form View</field>
+            <field name="model">toy.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action" name="%(retail_module.list_product_by_category_action)d">
+                                <field string="Products" name="product_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="description" />
+                                <field name="product_ids" widget="many2many_tags" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="retail_category_action" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+         <menuitem id="category_menu"
+            name="Nhóm sản phẩm"
+            parent="product_menu_root"
+            action="retail_category_action"
+            sequence="1"/>
+
+
+    </data>
+</odoo>

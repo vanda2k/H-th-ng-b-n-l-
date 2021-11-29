@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_toy_position_form" model="ir.ui.view">
+            <field name="name">toy.position.form</field>
+            <field name="model">toy.position</field>
+            <field name="arch" type="xml">
+                <form string="position">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="description"/>
+                            <field name="requirements"/>
+                            <field name="department_id"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_toy_position_tree" model="ir.ui.view">
+            <field name="name">toy.position.tree</field>
+            <field name="model">toy.position</field>
+            <field name="arch" type="xml">
+                <tree string="position">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="description"/>
+                    <field name="requirements"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="toy_position_tree_action" model="ir.actions.act_window">
+            <field name="name">Position</field>
+            <field name="res_model">toy.position</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="position_menu"
+            name="Chức vụ"
+            parent="employee_menu_root"
+            action="toy_position_tree_action"
+            sequence="3"/>
+    </data>
+</odoo>
+

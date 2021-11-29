@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_toy_partner_tree" model="ir.ui.view">
+            <field name="name">toy.partner.tree</field>
+            <field name="model">toy.partner</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Liên Lạc" sample="1" multi_edit="1">
+                    <field name="ref"/>
+                    <field name="name" />
+                    <field name="street" optional="show"/>
+                    <field name="industry_id" optional="show"/>
+                    <field name="phone" class="o_force_ltr" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="vat" optional="hide" readonly="1"/>
+                    <field name="company_type" optional="show"/>
+                    <field name="active" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_toy_partner_form" model="ir.ui.view">
+            <field name="name">toy.partner.form</field>
+            <field name="model">toy.partner</field>
+            <field name="arch" type="xml">
+                <sheet>
+                    <field name="image_1920" widget='image' class="oe_avatar" options='{"preview_image": "image_128"}'/>
+                    <div class="oe_title">
+                        <field name="company_type" options="{'horizontal': true}" class="oe_edit_only" widget="radio" />
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" />
+                        </h1>
+                        <h2>
+                            <field name="ref" placeholder="Mã khách hàng" />
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="street" />
+                            <field name="vat" />
+                            <field name="email" widget="email" />
+                            <field name="phone" widget="phone" />
+                            <field name="mobile" widget="phone" />
+                            <field name="comment" />
+                        </group>
+                        <group>
+                            <field name="industry_id" />
+                            <field name="website" />
+                            <field name="bank" />
+                            <field name="bank_id" />
+                            <field name="bank_name" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </field>
+        </record>
+
+        <record id="action_toy_customer_form" model="ir.actions.act_window">
+            <field name="name">Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('company_type', '=','customer')]</field>
+        </record>
+
+
+
+        <menuitem id="customer_menu"
+            name="Khách hàng"
+            parent="customer_menu_root"
+            action="action_toy_customer_form"
+            sequence="2"/>
+    </data>
+</odoo>

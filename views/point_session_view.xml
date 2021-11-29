@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="list_order_by_session_action" model="ir.actions.act_window">
+            <field name="name">Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('session_id', '=', active_id)]</field>
+        </record>
+        <record id="session_tree_view" model="ir.ui.view">
+            <field name="name">Session Tree View</field>
+            <field name="model">toy.session</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="start_at"/>
+                    <field name="stop_at"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="session_form_view" model="ir.ui.view">
+            <field name="name">Session Form View</field>
+            <field name="model">toy.session</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="button_close" type="object" string="Đóng phiên" states="open"/>
+                        <field name="state" widget="statusbar" statusbar_visible="open,close" readonly="1" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action" name="%(retail_module.list_order_by_session_action)d">
+                                <field string="Orders" name="order_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="employee_id" />
+                                <field name="start_at"/>
+                                <field name="stop_at"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="retail_session_action" model="ir.actions.act_window">
+            <field name="name">Session</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">toy.session</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+<!--         <menuitem id="session_menu"-->
+<!--            name="Phiên"-->
+<!--            parent="customer_menu_root"-->
+<!--            action="retail_session_action"-->
+<!--            sequence="2"/>-->
+
+
+    </data>
+</odoo>

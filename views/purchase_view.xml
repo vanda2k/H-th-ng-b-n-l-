@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="toy_order_form_view" model="ir.ui.view">
+            <field name="name">Toy Order Form View</field>
+            <field name="model">toy.purchase</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order" class="o_purchase_order">
+                    <header>
+                        <button name="button_approved" type="object" string="Duyệt" states="purchase"/>
+                        <button name="button_unlock" type="object" string="Yêu cầu mua hàng" states="cancel,approved"/>
+                        <button name="button_cancel" type="object" string="Nháp" states="approved,purchase" />
+                        <button name="button_picking" type="object" string="Nhập hàng" states="approved"/>
+                        <button name="button_payed" type="object" string="Đã thanh toán" states="picking" />
+                        <field name="state" widget="statusbar" statusbar_visible="purchase,approved,picking,payed,,cancel" readonly="1" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="supplier_id" />
+                                <field name="employee_id" />
+                                <field name="notes" />
+                            </group>
+                            <group>
+                                <field name="date_order" />
+                                <field name="date_approve" />
+                                <field name="date_planned" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sản phẩm">
+                                <field name="order_line">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="product_unit"/>
+                                        <field name="product_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal" readonly="1" force_save="1" widget="monetary"/>
+                                        <field name="state" invisible="1" optional="show"/>
+                                        <field name="product_picked"/>
+                                        <field name="product_pick_plan"/>
+                                        <field name="supplier_id" invisible="1" optional="show"/>
+                                        <field name="date_order" invisible="1" optional="show"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                                </group>
+                            </page>
+                            <page string="Thông tin nhập hàng">
+                                <group >
+                                    <field name="date_picking"  />
+                                    <field name="picking_note"  />
+                                </group>
+                            </page>
+                            <page string="Thông tin thanh toán">
+                                <group >
+                                    <field name="date_payed"  />
+                                    <field name="payment_method" />
+                                    <field name="payment_note" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+         <record id="toy_purchase_tree_view" model="ir.ui.view">
+            <field name="name">Order Tree View</field>
+            <field name="model">toy.purchase</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="date_order"/>
+                    <field name="supplier_id"/>
+                    <field name="employee_id"/>
+                    <field name="amount_total"/>
+                    <field name="date_approve"/>
+                    <field name="date_planned"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_toy_purchase_order_graph">
+            <field name="name">toy.purchase.order.graph</field>
+            <field name="model">toy.purchase</field>
+            <field name="arch" type="xml">
+                <graph string="Mua hàng" sample="1">
+                    <field name="supplier_id"/>
+                    <field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_toy_purchase_order_pivot">
+            <field name="name">purchase.order.pivot</field>
+            <field name="model">toy.purchase</field>
+            <field name="arch" type="xml">
+                <pivot string="Mua hàng" sample="1">
+                    <field name="date_order" type="row"/>
+                    <field name="amount_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+
+        <record id="action_toy_purchase_form" model="ir.actions.act_window">
+            <field name="name">Purchase Order</field>
+            <field name="res_model">toy.purchase</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="purchase_menu_root"
+            name="Mua hàng"
+            parent="retail_menu_root"
+            sequence="2"/>
+
+        <menuitem id="purchase_menu"
+            name="Đơn mua hàng"
+            parent="purchase_menu_root"
+            action="action_toy_purchase_form"
+            sequence="1"/>
+    </data>
+</odoo>
